@@ -35,12 +35,18 @@ export default function App() {
   }, [response]);
 
   useEffect(() => {
-    if (token) {
-      // TODO: Select which option you want: Top Tracks or Album Tracks
+    const fetchTracks = async () => {
+      // TODO: Comment out which one you don't want to use
+      // myTopTracks or albumTracks
 
-      // Comment out the one you are not using
-      // myTopTracks(setTracks, token);
-      albumTracks(ALBUM_ID, setTracks, token);
+      const res = await myTopTracks(token);
+      // const res = await albumTracks(ALBUM_ID, token);
+      setTracks(res);
+    };
+
+    if (token) {
+      // Authenticated, make API request
+      fetchTracks();
     }
   }, [token]);
 
